@@ -25,22 +25,29 @@ function validate () {                                  # This function ensures 
 Red='\033[31m'              # Colour codes assigned to variables
 Green='\033[32m'
 Yellow='\033[93m'
-Blue='\033[34m'
 Purple='\033[35m'
 Clear='\033[0m'
 
 while true; do    # Begins the over arching while loop that allows the game to be replayed after completion.
-    echo -e "${Purple}.:: Welcome to the age guessing game! ::.\n${Clear}Please choose a difficulty:\n${Green}1. Easy
-            \n${Yellow}2. Medium\n${Red}3. Hard${Clear}" # Splash screen
+    echo -e "${Purple}.:: Welcome to the age guessing game! ::.\n${Clear}Please choose a difficulty:\n${Green}1. Easy\n${Yellow}2. Normal\n${Red}3. Hard${Clear}" # Splash screen
     echo -e "Enter a number:\c"
     validate 1 3                    # Prompt user to choose a difficulty and validates their choice using the validate function.
     userDiff=$?                     # user difficulty is saved to a variable
+    
+    if [[ $userDiff = 1 ]]; then                        # This If/elif structure is for printing user feedback on their difficulty choice.
+        echo -e "${Green}\nEASY MODE${Clear}"
+    elif [[ $userDiff = 2 ]]; then
+        echo -e "${Yellow}\nNORMAL MODE${Clear}"
+    else
+        echo -e "${Red}\nHARD MODE${Clear}"
+    fi
+
     guesses=$(( 12 - 2*$userDiff )) #  Subtracts user difficulty choice x2 from 12 to calculate number of guesses
 
     randgen 18 80           # Random number is generated between 18 and 80 using the randgen function
     answer=$randNum         # Random number assigned to answer variable
 
-    echo -e "\nCan you guess how old I am? (Hint: I am between 18 and 80 years old)"
+    echo -e "Can you guess how old I am? (Hint: I am between 18 and 80 years old)"
     until [[ $userInput = $answer || $guesses = 0 ]];       # Until loop breaks if answer is found or guesses run out.
     do
         if [[ $guesses = 1 ]]; then
