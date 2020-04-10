@@ -13,7 +13,7 @@ function randgen () {                   # Declaring the randgen function
 function validate () {                                  # This function ensures the input is an integer between two given values
     while true; do                                      # While loop breaks only when valid input has been entered
     read -p " " choice                                  # Generic prompt allows function to be used in various situations
-    if [[ $choice =~ ^[0-9]+$ && $choice -ge $1 && $choice -le $2 ]]; then     # If user input is between parameter 1 and parameter 2:
+    if [[ $choice =~ ^[0-9]+$ && $choice -ge $1 && $choice -le $2 ]]; then     # If user input is between parameter 1 and parameter 2: (Henry-Stocker, 2013)
         return $choice                                  # Output of the function is the user input
         break
     else
@@ -34,7 +34,7 @@ while true; do    # Begins the over arching while loop that allows the game to b
     validate 1 3                    # Prompt user to choose a difficulty and validates their choice using the validate function.
     userDiff=$?                     # user difficulty is saved to a variable
     
-    if [[ $userDiff = 1 ]]; then                        # This If/elif structure is for printing user feedback on their difficulty choice.
+    if [[ $userDiff = 1 ]]; then  # This If/elif structure is for printing user feedback on their difficulty choice.
         echo -e "${Green}\nEASY MODE${Clear}"
     elif [[ $userDiff = 2 ]]; then
         echo -e "${Yellow}\nNORMAL MODE${Clear}"
@@ -51,9 +51,10 @@ while true; do    # Begins the over arching while loop that allows the game to b
     until [[ $userInput = $answer || $guesses = 0 ]];       # Until loop breaks if answer is found or guesses run out.
     do
         if [[ $guesses = 1 ]]; then
-            guessMsg="${Red}1${Clear} guess"                # If guesses remaining is 1, colour is red, word change to "guess" instead of "guesses"
+            guessMsg="${Red}1${Clear} guess"                # If guesses remaining is 1, colour is red, word change to 
+                                                            # "guess" instead of "guesses"
         elif [[ $guesses -le 3 ]]; then
-            guessMsg="${Yellow}$guesses${Clear} guesses"    # If guesses remaining is less than or equal to 3, colour is yellow
+            guessMsg="${Yellow}$guesses${Clear} guesses"  # If guesses remaining is less than or equal to 3, colour is yellow
         else    
             guessMsg="${Green}$guesses${Clear} guesses"     # If guesses remaining is above 3, colour is green.
         fi
@@ -69,7 +70,6 @@ while true; do    # Begins the over arching while loop that allows the game to b
         else
             continue
         fi
-
         (( guesses-- ))    # Decrements the guess counter
 
     done
@@ -86,3 +86,8 @@ while true; do    # Begins the over arching while loop that allows the game to b
 done
 echo -e "${Green}Thanks for playing!\nGoodbye!" # Exit message
 exit 0
+
+# REFERENCES
+
+# Henry-Stocker, S. (2013). Using Bash's regular expressions. 
+#         Unix as a second language. Retrieved from https://www.networkworld.com/article/2693361/unix-tip-using-bash-s-regular-expressions.html
